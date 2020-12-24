@@ -23,8 +23,68 @@ body {
 
 }
 
+.whole-container{
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
 
+#main-container{
+    width:100%;
+    height: 700px;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 
+/*--------------  search-bar --------------*/
+#search-bar {
+    display: inline-block;
+}
+
+/*--------------  list container --------------*/
+#list-container{
+    display: inline-block;
+    width: 20%;
+    margin-right: 2%;
+    margin-left: 3%;
+    height: 600px;
+    background-color: rgba(245, 239, 239, .8);
+    border-radius: 0.5em;
+}
+
+/*--------------  Map --------------*/
+#map-div-container{
+    display: inline-block;
+    width: 50%;
+    height: 600px;
+    position: relative;
+   
+}
+
+#map-container{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+/*--------------  Info Container --------------*/
+#info-container{
+    display: inline-block;
+    margin-right: 3%;
+    margin-left: 2%;
+    width: 20%;
+    height: 600px;
+    background-color: rgba(245, 239, 239, .8);
+    border-radius: 0.5em;
+}
+
+#yelp-reviews{
+    margin-right: 3%;
+    margin-left: 3%;
+    width: 94%;
+    height: 300px;
+    background-color: rgba(245, 239, 239, .8);
+}
 
 /*--------------  footer --------------*/
 footer {
