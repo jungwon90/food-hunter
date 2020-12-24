@@ -49,11 +49,10 @@ function SearchBar(props){
         event.preventDefault();
         console.log('event handler is working');
         //get the search input from the form
-        const formInput = {'search-input': searchInput};
         console.log(isError, searchInput);
 
         //get request to /search in the server
-        $.get('/search', formInput, (response)=>{
+        $.get('/search', (response)=>{
             console.log(response);
         }).fail(()=>{
             setIsError(true);
@@ -67,7 +66,7 @@ function SearchBar(props){
                 <input type="text" onChange={(e)=>{
                     e.preventDefault();
                     setSearchInput(e.target.value);
-                }} name="search-input" id="search-input"></input>
+                }} name="search-input" id="search-input" placeholder="What are you craving for?"></input>
                 <input type="submit" value="search" id="search-btn"></input>
             </form>
         </div>

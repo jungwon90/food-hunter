@@ -5,8 +5,11 @@
 ### Overview
 
 ### Technologies required 
+Backend: Java, Spring, Gradle
+Fronend: HTML5, CSS3, React.js
 
 ### Data
+DataSF, Yelp
 
 ### Roadmap
 
