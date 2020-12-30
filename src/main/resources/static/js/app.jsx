@@ -16,19 +16,20 @@ function App() {
 function Home(props){
     console.log('home render');
     const [data, setData] = React.useState([]);
+    const [count, setCount] = React.useState(0);
 
     return( 
         <div className="whole-container">
             <div>
                 <label>Food Hunters</label>
-                <SearchBar data={data} setData={setData} />
+                <SearchBar data={data} setData={setData} count={count} setCount={setCount}/>
             </div>
             <div id="main-container">
                 <div id="list-container">
                     {/* <ListContainer data={data} /> */}
                 </div>
                 <div id="map-div-container">
-                    <MapContainer data={data} />
+                    <MapContainer data={data} count={count}/>
                 </div>
                 <div id="info-container">
 
@@ -46,10 +47,15 @@ function SearchBar(props){
     const [isError, setIsError] = React.useState(false);
     const [searchInput, setSearchInput] = React.useState('');
     console.log(isError, searchInput);
+    let curCount = props.count;
+    console.log(curCount);
 
     const handleSubmit = async event =>{
         event.preventDefault();
         console.log('event handler is working');
+        curCount += 1;
+        console.log(curCount);
+        props.setCount(curCount);
         console.log(isError, searchInput, props.data);
 
         //get request to /search in the server
@@ -70,7 +76,7 @@ function SearchBar(props){
 
                 }
             }
-
+            console.log(searchData);
             //set the data to the filtered data from the server
             props.setData(searchData); 
 
@@ -149,15 +155,22 @@ function MapContainer(props){
     if (map){
         console.log('hi, there is a map');
         console.log(markers);
+        console.log(props.count);
+        let curMarkers = [];
         
-        if(markers.length !== 0){
-            console.log('is empty');
-            //setMarkers([]);
+        if(props.count > 1 && props.data.length !== markers.length){
+            console.log('deleting previous markers');
+            //delete the previous markers
+            for(const marker of markers){
+                marker.setMap(null);
+            }
         }
-
-        if(props.data.length !== 0 && markers.length === 0){
+        
+        //creating markers at first search
+        if((props.data.length !== 0 && markers.length === curMarkers.length)||
+            (props.count > 1 && props.data.length !== markers.length)){
             console.log(props.data);
-            let curMarkers = [];
+            
             //create markers with an Info container
             for(const truck of props.data){
                 const truckInfo = new google.maps.InfoWindow();
@@ -188,6 +201,7 @@ function MapContainer(props){
             console.log(curMarkers);
             setMarkers(curMarkers);
         } 
+
     }
 
     const MainMap = React.useCallback(
