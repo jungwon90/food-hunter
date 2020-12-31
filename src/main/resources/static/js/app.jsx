@@ -26,7 +26,7 @@ function Home(props){
             </div>
             <div id="main-container">
                 <div id="list-container">
-                    {/* <ListContainer data={data} /> */}
+                    <ListContainer data={data} /> 
                 </div>
                 <div id="map-div-container">
                     <MapContainer data={data} count={count}/>
@@ -95,6 +95,42 @@ function SearchBar(props){
                 }} name="search-input" id="search-input" placeholder="What are you craving for?"></input>
                 <input type="submit" value="search" id="search-btn"></input>
             </form>
+        </div>
+    );
+}
+
+function FoodTruck(props){
+    return(
+        <div cassName="foodTruck">
+            <img src={props.imgUrl} className="list-truck-icon"></img>
+            <div className="foodtruck-list-info">
+                <p>{props.name}</p>
+                <p>{props.address}</p>
+            </div>
+        </div>
+    );
+}
+
+function ListContainer(props){
+    console.log('listContainer render');
+    const listData = props.data;
+    let imgUrl = '../img/foodtruck-icon.png';
+    //an empty list to contain a list of food trucks
+    const foodTruckLists = [];
+    
+    if(listData.length !== 0){
+        console.log('useEffect is working');
+        for(const list of listData){
+            foodTruckLists.push(<FoodTruck 
+            imgUrl={imgUrl}
+            name={list.applicant}
+            address={list.address}/>)
+        }
+    }
+
+    return(
+        <div className="list-scrollbar">
+            {foodTruckLists}
         </div>
     );
 }
