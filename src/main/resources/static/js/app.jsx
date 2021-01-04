@@ -31,9 +31,6 @@ function Home(props){
                 <div id="map-div-container">
                     <MapContainer data={data} count={count}/>
                 </div>
-                <div id="info-container">
-
-                </div>
             </div>
             <div id="yelp-reviews">
 
@@ -101,7 +98,7 @@ function SearchBar(props){
 
 function FoodTruck(props){
     return(
-        <div cassName="foodTruck">
+        <div className="foodTruck">
             <img src={props.imgUrl} className="list-truck-icon"></img>
             <div className="foodtruck-list-info">
                 <p>{props.name}</p>
