@@ -41,11 +41,14 @@ public class YelpReview {
 
         
         //to get the bussiness id, call Bussiness search endpoint
-        ResponseEntity<String> bussinesses = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
-        String body = bussinesses.getBody();
+        ResponseEntity<String> businesses = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
+        String body = businesses.getBody();
+        body = body.replace("{\"businesses\": ", "");
+        body = body.replace(", \"total\": 1200, \"region\": {\"center\": {\"longitude\": -122.41619110107422, \"latitude\": 37.7489978935666}}}", "");
+        
         System.out.println(body);
          
-        return bussinesses;
+        return businesses;
 
     
         //find out the id of the truckName with api call above
