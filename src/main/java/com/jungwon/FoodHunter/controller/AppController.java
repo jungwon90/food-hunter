@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 public class AppController {
-    // @RequestMapping("/") //used with @Controller annotaion
+    // @RequestMapping("/")
     // public String homepage(){
     //     return "index";
     // }
@@ -26,6 +26,8 @@ public class AppController {
 
     @GetMapping("/search")
     public List<Object> getSearchResult(){
+        //getForObject() method doesn't support setting headers
+        //If you want to set headers, use exchange() method
         Object[] result = restTemplate.getForObject(url, Object[].class);
         System.out.println(result);
         return Arrays.asList(result); //convert the Object array to a list of Object

@@ -15,18 +15,21 @@ function App() {
 
 function Home(props){
     console.log('home render');
+    const [userInput, setUserInput] = React.useState('');
     const [data, setData] = React.useState([]);
     const [count, setCount] = React.useState(0);
+    const [yelpData, setYelpData] = React.useState();
+    console.log(userInput, yelpData);
 
     return( 
         <div className="whole-container">
             <div>
                 <label>Food Hunters</label>
-                <SearchBar data={data} setData={setData} count={count} setCount={setCount}/>
+                <SearchBar data={data} setData={setData} count={count} setCount={setCount} setUserInput={setUserInput}/>
             </div>
             <div id="main-container">
                 <div id="list-container">
-                    <ListContainer data={data} /> 
+                    <ListContainer data={data} setYelpData={setYelpData} userInput={userInput}/> 
                 </div>
                 <div id="map-div-container">
                     <MapContainer data={data} count={count}/>
@@ -54,6 +57,7 @@ function SearchBar(props){
         console.log(curCount);
         props.setCount(curCount);
         console.log(isError, searchInput, props.data);
+        props.setUserInput(searchInput);
 
         //get request to /search in the server
         $.get('/search', (response)=>{
@@ -97,8 +101,22 @@ function SearchBar(props){
 }
 
 function FoodTruck(props){
+
+    const handleClickFoodTruck = async event => {
+        event.preventDefault();
+        console.log('food truck click event handling is working');
+
+        //get request to yelp with data inputs : /searchInput/truckName
+        $.get('/yelp', {'searchInput': props.userInput, 'truckName': props.name}, (res)=>{
+            console.log(response);
+        }).fail(()=>{
+            console.log('fail to retrieve the Yelp data');
+        })
+        
+    }
+
     return(
-        <div className="foodTruck">
+        <div className="foodTruck" onClick={handleClickFoodTruck}>
             <img src={props.imgUrl} className="list-truck-icon"></img>
             <div className="foodtruck-list-info">
                 <p>{props.name}</p>
@@ -117,11 +135,14 @@ function ListContainer(props){
     
     if(listData.length !== 0){
         console.log('useEffect is working');
-        for(const list of listData){
+        for(let i = 0; i < listData.length; i++){
             foodTruckLists.push(<FoodTruck 
+            key={i}
             imgUrl={imgUrl}
-            name={list.applicant}
-            address={list.address}/>)
+            name={listData[i].applicant}
+            address={listData[i].address}
+            setYelpData={props.setYelpData}
+            userInput={props.userInput}/>)
         }
     }
 
