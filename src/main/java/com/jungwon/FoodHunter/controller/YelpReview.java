@@ -13,10 +13,18 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.lang.StringBuilder;
+import java.util.HashMap;
+
+import java.lang.reflect.Type;
 
 @RestController
 public class YelpReview {
@@ -27,34 +35,57 @@ public class YelpReview {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private Gson gson;
+
 
     @GetMapping("/yelp")
-    public ResponseEntity<String> getYelpData(@RequestParam("searchInput") String searchInput ,@RequestParam("truckName") String truckName){
-        System.out.println(searchInput + truckName);
-        String url = "https://api.yelp.com/v3/businesses/search?location=SF?term=" + searchInput;
+    public Map<String, String> getYelpData(@RequestParam("address1") String address1 ,@RequestParam("truckName") String truckName){
+        System.out.println(address1 + truckName);
+        String url = "https://api.yelp.com/v3/businesses/matches?name=" + truckName + "&city=San%20Francisco&state=CA&country=US&address1=" + address1;
         //set headers
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", apiKey);
         headers.set("cache-control", "no-cache");
-
+        //combine the headers
         HttpEntity entity = new HttpEntity(headers);
 
         
-        //to get the bussiness id, call Bussiness search endpoint
+        //---- to get the bussiness id, call Bussiness matches endpoint ----//
         ResponseEntity<String> businesses = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         String body = businesses.getBody();
-        body = body.replace("{\"businesses\": ", "");
-        body = body.replace(", \"total\": 1200, \"region\": {\"center\": {\"longitude\": -122.41619110107422, \"latitude\": 37.7489978935666}}}", "");
-        
         System.out.println(body);
-         
-        return businesses;
 
-    
-        //find out the id of the truckName with api call above
+        if(body.equals("{\"businesses\": []}")){
+            gson = new Gson();
+            return gson.toJson("no yelp data found");
+        }else{
+            //remove unnecessart substrings 
+            body = body.replace("{\"businesses\": ", "");
+            int lastIndex = body.length() - 1;
+            StringBuilder strBuilder = new StringBuilder(body);
+            strBuilder.replace(lastIndex, lastIndex + 1, "");
+            body = strBuilder.toString();
+            
+            //convert the string to a list of maps
+            gson = new Gson();
+            Type resultType = new TypeToken<List<Map<String, Object>>>(){}.getType();
+            List<Map<String, Object>> result = gson.fromJson(body, resultType);
 
-        // Object[] result = restTemplate.getForObject("https://api.yelp.com/v3/businesses/{id}", Object[].class);
-        // System.out.println(result);
-        // return Arrays.asList(result); //convert the Object array to a list of Object
+            //get the id of the result
+            String id = String.valueOf(result.get(0).get("id"));
+            System.out.println(id);
+
+        
+
+            //---- request business detail and return the json to React ----//
+            String detailUrl = "https://api.yelp.com/v3/businesses/" + id;
+            ResponseEntity<String> detailReq = restTemplate.exchange(detailUrl, HttpMethod.GET, entity, String.class);
+            String detialBody = detailReq.getBody();
+            System.out.println(detialBody);
+
+            //conver the detailBody to JSON and return it
+            return gson.toJson(detialBody);
+        }
     }
 }

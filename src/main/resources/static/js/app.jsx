@@ -15,21 +15,20 @@ function App() {
 
 function Home(props){
     console.log('home render');
-    const [userInput, setUserInput] = React.useState('');
     const [data, setData] = React.useState([]);
     const [count, setCount] = React.useState(0);
     const [yelpData, setYelpData] = React.useState();
-    console.log(userInput, yelpData);
+    console.log(yelpData);
 
     return( 
         <div className="whole-container">
             <div>
                 <label>Food Hunters</label>
-                <SearchBar data={data} setData={setData} count={count} setCount={setCount} setUserInput={setUserInput}/>
+                <SearchBar data={data} setData={setData} count={count} setCount={setCount} />
             </div>
             <div id="main-container">
                 <div id="list-container">
-                    <ListContainer data={data} setYelpData={setYelpData} userInput={userInput}/> 
+                    <ListContainer data={data} setYelpData={setYelpData} /> 
                 </div>
                 <div id="map-div-container">
                     <MapContainer data={data} count={count}/>
@@ -57,7 +56,6 @@ function SearchBar(props){
         console.log(curCount);
         props.setCount(curCount);
         console.log(isError, searchInput, props.data);
-        props.setUserInput(searchInput);
 
         //get request to /search in the server
         $.get('/search', (response)=>{
@@ -105,9 +103,8 @@ function FoodTruck(props){
     const handleClickFoodTruck = async event => {
         event.preventDefault();
         console.log('food truck click event handling is working');
-
         //get request to yelp with data inputs : /searchInput/truckName
-        $.get('/yelp', {'searchInput': props.userInput, 'truckName': props.name}, (res)=>{
+        $.get('/yelp', {'address1': props.address, 'truckName': props.name}, (res)=>{
             console.log(response);
         }).fail(()=>{
             console.log('fail to retrieve the Yelp data');
@@ -141,8 +138,7 @@ function ListContainer(props){
             imgUrl={imgUrl}
             name={listData[i].applicant}
             address={listData[i].address}
-            setYelpData={props.setYelpData}
-            userInput={props.userInput}/>)
+            setYelpData={props.setYelpData}/>)
         }
     }
 
