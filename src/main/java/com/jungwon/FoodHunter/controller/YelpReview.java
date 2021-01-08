@@ -40,7 +40,7 @@ public class YelpReview {
 
 
     @GetMapping("/yelp")
-    public Map<String, String> getYelpData(@RequestParam("address1") String address1 ,@RequestParam("truckName") String truckName){
+    public Map<String, Object> getYelpData(@RequestParam("address1") String address1 ,@RequestParam("truckName") String truckName){
         System.out.println(address1 + truckName);
         String url = "https://api.yelp.com/v3/businesses/matches?name=" + truckName + "&city=San%20Francisco&state=CA&country=US&address1=" + address1;
         //set headers
@@ -58,7 +58,10 @@ public class YelpReview {
 
         if(body.equals("{\"businesses\": []}")){
             gson = new Gson();
-            return gson.toJson("no yelp data found");
+            Type noResType = new TypeToken<Map<String, Object>>(){}.getType();
+            Map<String, Object> noRes = gson.fromJson("no yelp data found", noResType);
+            
+            return noRes;
         }else{
             //remove unnecessart substrings 
             body = body.replace("{\"businesses\": ", "");
@@ -84,8 +87,13 @@ public class YelpReview {
             String detialBody = detailReq.getBody();
             System.out.println(detialBody);
 
-            //conver the detailBody to JSON and return it
-            return gson.toJson(detialBody);
+            //convert the type to return the business detail
+            Type finalResType = new TypeToken<Map<String, Object>>(){}.getType();
+            Map<String, Object> finalRes = gson.fromJson(detialBody, finalResType);
+            
+            return finalRes;
+
+            // return gson.toJson(detialBody);
         }
     }
 }

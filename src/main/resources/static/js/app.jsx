@@ -105,7 +105,7 @@ function FoodTruck(props){
         console.log('food truck click event handling is working');
         //get request to yelp with data inputs : /searchInput/truckName
         $.get('/yelp', {'address1': props.address, 'truckName': props.name}, (res)=>{
-            console.log(response);
+            console.log(res);
         }).fail(()=>{
             console.log('fail to retrieve the Yelp data');
         })
