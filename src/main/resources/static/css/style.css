@@ -120,6 +120,10 @@ body {
     background-color: rgba(245, 239, 239, .8);
 }
 
+.yelp-content-box{
+    display: inline-block;
+}
+
 /*--------------  footer --------------*/
 footer {
     background-color: #333333;
