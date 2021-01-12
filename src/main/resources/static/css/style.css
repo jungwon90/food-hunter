@@ -113,15 +113,31 @@ body {
 }
 /*--------------  Yelp Reviews --------------*/
 #yelp-reviews{
-    margin-right: 3%;
-    margin-left: 3%;
+    margin-left: 4%;
     width: 92%;
     height: 300px;
     background-color: rgba(245, 239, 239, .8);
+    border-radius: 0.5em;
+}
+
+#yelp-content{
+    width: 100%;
+    height: 100%;
 }
 
 .yelp-content-box{
     display: inline-block;
+    width: 30%;
+    height: 94%;
+    margin-left: 3%;
+    margin-top: 3%; 
+    vertical-align: middle;
+}
+
+
+.rating-img{
+    width: 15%;
+    height: auto;
 }
 
 /*--------------  footer --------------*/

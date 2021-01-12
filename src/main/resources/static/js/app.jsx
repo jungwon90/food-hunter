@@ -298,14 +298,14 @@ function YelpContainer(props){
         const content = `
         <div class="yelp-content-box" style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${yelpData['image_url']});">
             <p>${yelpData['name']}</p>
-            <img src="../img/${rating}stars.png">
+            <img class="rating-img" src="../img/${rating}stars.png">
         </div>
         <div class="yelp-content-box">
             <p>${categories.join(', ')}</p>
             <p>${open}</p>
             <p>Call   ${yelpData['display_phone']}</p>
             <div>Services: ${services.join(' & ')}</div>
-            <a href=${yelpData['url']}></a>
+            <a href=${yelpData['url']}>View More Info in Yelp</a>
         </div>
         <div class="yelp-content-box">
             <div>
