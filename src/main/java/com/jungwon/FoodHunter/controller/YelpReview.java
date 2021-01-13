@@ -54,12 +54,13 @@ public class YelpReview {
         //---- to get the bussiness id, call Bussiness matches endpoint ----//
         ResponseEntity<String> businesses = restTemplate.exchange(url, HttpMethod.GET, entity, String.class);
         String body = businesses.getBody();
+        System.out.println("-------business match body-------");
         System.out.println(body);
 
         if(body.equals("{\"businesses\": []}")){
             gson = new Gson();
             Type noResType = new TypeToken<Map<String, Object>>(){}.getType();
-            Map<String, Object> noRes = gson.fromJson("no yelp data found", noResType);
+            Map<String, Object> noRes = gson.fromJson("{response: \"no yelp data found\"}", noResType);
             
             return noRes;
         }else{

@@ -106,8 +106,10 @@ function FoodTruck(props){
         //get request to yelp with data inputs : /searchInput/truckName
         $.get('/yelp', {'address1': props.address, 'truckName': props.name}, (res)=>{
             console.log(res);
+            
             //update the yelpData
             props.setYelpData(res);
+            
 
         }).fail(()=>{
             console.log('fail to retrieve the Yelp data');
@@ -275,50 +277,63 @@ function MapContainer(props){
 function YelpContainer(props){
     const yelpData = props.yelpData;
     
+    
     if(yelpData){
-        let rating = yelpData['rating'];
-        let open = yelpData.is_closed ? 'closed' : 'open';
-        let hours = yelpData['hours'][0];
-        
-        let categories = [];
-        for(const category of yelpData.categories){
-            categories.push(category['title']);
-        }
-
-        let services = [];
-        for(const service of yelpData['transactions']){
-            services.push(service);
-        }
-
-        let address = [];
-        for(const arrAdd of yelpData['location']['display_address']){
-            address.push(arrAdd);
-        }
-        
-        const content = `
-        <div class="yelp-content-box" style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${yelpData['image_url']});">
-            <p>${yelpData['name']}</p>
-            <img class="rating-img" src="../img/${rating}stars.png">
-        </div>
-        <div class="yelp-content-box">
-            <p>${categories.join(', ')}</p>
-            <p>${open}</p>
-            <p>Call   ${yelpData['display_phone']}</p>
-            <div>Services: ${services.join(' & ')}</div>
-            <a href=${yelpData['url']}>View More Info in Yelp</a>
-        </div>
-        <div class="yelp-content-box">
-            <div>
-                <label>ADDRESS</label>
-                <p>${address.join(', ')}</p>
+        //if there's no yelp data
+        if(yelpData.response){
+            //if there's any UI component from previous search, delete it
+            $('#yelp-content').empty();
+            $('#yelp-content').append("This Food Truck has no Yelp information");
+            
+        } else{
+            //if there's any UI component from previous search, delete it
+            $('#yelp-content').empty();
+            let rating = yelpData['rating'];
+            let open = yelpData.is_closed ? 'closed' : 'open';
+            let hours = yelpData['hours'][0];
+            
+            let categories = [];
+            for(const category of yelpData.categories){
+                categories.push(category['title']);
+            }
+    
+            let services = [];
+            for(const service of yelpData['transactions']){
+                services.push(service);
+            }
+    
+            let address = [];
+            for(const arrAdd of yelpData['location']['display_address']){
+                address.push(arrAdd);
+            }
+            
+            const content = `
+            <div class="yelp-content-box" style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${yelpData['image_url']});">
+                <p>${yelpData['name']}</p>
+                <img class="rating-img" src="../img/${rating}stars.png">
             </div>
-            <div>
-                <label>HOURS</label>
-                <p></p>
+            <div class="yelp-content-box">
+                <p>${categories.join(', ')}</p>
+                <p>${open}</p>
+                <p>Call   ${yelpData['display_phone']}</p>
+                <div>Services: ${services.join(' & ')}</div>
+                <a href=${yelpData['url']}>View More Info in Yelp</a>
             </div>
-        </div>`;
-
-        $('#yelp-content').append(content);
+            <div class="yelp-content-box">
+                <div>
+                    <label>ADDRESS</label>
+                    <p>${address.join(', ')}</p>
+                </div>
+                <div>
+                    <label>HOURS</label>
+                    <p></p>
+                </div>
+            </div>`;
+    
+            $('#yelp-content').append(content);
+        }
+       
+    
     } 
 
     return(
