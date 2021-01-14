@@ -63,6 +63,7 @@ public class YelpReview {
             Map<String, Object> noRes = gson.fromJson("{response: \"no yelp data found\"}", noResType);
             
             return noRes;
+            //return gson.toJson(noRes);
         }else{
             //remove unnecessart substrings 
             body = body.replace("{\"businesses\": ", "");
@@ -94,7 +95,7 @@ public class YelpReview {
             
             return finalRes;
 
-            // return gson.toJson(detialBody);
+            //return gson.toJson(detialBody);
         }
     }
 }

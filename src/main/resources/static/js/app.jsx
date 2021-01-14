@@ -22,7 +22,7 @@ function Home(props){
 
     return( 
         <div className="whole-container">
-            <div>
+            <div id="search-bar-container">
                 <label>Food Hunters</label>
                 <SearchBar data={data} setData={setData} count={count} setCount={setCount} />
             </div>

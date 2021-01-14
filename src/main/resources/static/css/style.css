@@ -37,6 +37,9 @@ body {
 }
 
 /*--------------  search-bar --------------*/
+#search-bar-container{
+    text-align: center;
+}
 #search-bar {
     display: inline-block;
 }
@@ -130,7 +133,7 @@ body {
     width: 30%;
     height: 94%;
     margin-left: 3%;
-    margin-top: 3%; 
+    padding-top: 9px; 
     vertical-align: middle;
 }
 
