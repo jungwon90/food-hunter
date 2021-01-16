@@ -39,9 +39,48 @@ body {
 /*--------------  search-bar --------------*/
 #search-bar-container{
     text-align: center;
+    height: 100px;
+}
+
+.search-bar-icon{
+    width: 5%;
+    height: auto;
+    border: 3px solid #931a25;
+    border-radius: 200px;
+    padding: 10px 10px 10px 10px;
+    margin-right: 24px;
+    vertical-align: middle;
+
 }
 #search-bar {
     display: inline-block;
+    width: 54%;
+    vertical-align: middle;
+}
+
+#search-bar-label{
+    margin-right: 10px;
+    font-size: 22px;
+    font-weight: 400;
+    width: 30%;
+    text-transform: uppercase;
+    vertical-align: middle;
+}
+
+#search-input{
+    margin-right: 10px;
+    padding: 5px 5px 5px 5px;
+    border-radius: 7px;
+    width: 70%;
+}
+
+#search-btn{
+    text-transform: uppercase;
+    font: 'Lato';
+    font-weight: 400;
+    border-radius: 10px;
+    padding: 5px 20px;
+    background-color: rgba(245, 239, 239, .8);
 }
 
 /*--------------  list container --------------*/
@@ -145,7 +184,7 @@ body {
 
 /*--------------  footer --------------*/
 footer {
-    background-color: #333333;
+    background-color: #ffcb8e;
     padding: 40px;
     font-size: 80%;
 }

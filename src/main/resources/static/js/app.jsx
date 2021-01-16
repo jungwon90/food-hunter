@@ -23,7 +23,8 @@ function Home(props){
     return( 
         <div className="whole-container">
             <div id="search-bar-container">
-                <label>Food Hunters</label>
+                <img src="../img/foodtruck-icon.png" className="search-bar-icon"></img>
+                <label id="search-bar-label">Food Hunters</label>
                 <SearchBar data={data} setData={setData} count={count} setCount={setCount} />
             </div>
             <div id="main-container">
