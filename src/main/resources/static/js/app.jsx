@@ -290,8 +290,14 @@ function YelpContainer(props){
             //if there's any UI component from previous search, delete it
             $('#yelp-content').empty();
             let rating = yelpData['rating'];
-            let open = yelpData.is_closed ? 'closed' : 'open';
-            let hours = yelpData['hours'][0];
+            let open = yelpData.hours[0].is_open_now ? 'open' : 'closed';
+            let hours = yelpData.hours[0].open; //open hours array(Mon-Fri)
+            let weekHours = [];
+
+            for(const daily of hours){
+                weekHours.push(`<p>start: ${daily.start.slice(0, 2) + ':' + daily.start.slice(2, 4)}  
+                                end: ${daily.end.slice(0, 2) + ":" + daily.end.slice(2, 4)}</p>`)
+            }
             
             let categories = [];
             for(const category of yelpData.categories){
@@ -327,7 +333,7 @@ function YelpContainer(props){
                 </div>
                 <div>
                     <label>HOURS</label>
-                    <p></p>
+                    ${weekHours.join('')}         
                 </div>
             </div>`;
     

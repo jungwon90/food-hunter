@@ -173,6 +173,7 @@ body {
     height: 94%;
     margin-left: 3%;
     padding-top: 9px; 
+    margin-top: 9px;
     vertical-align: middle;
 }
 
@@ -184,7 +185,7 @@ body {
 
 /*--------------  footer --------------*/
 footer {
-    background-color: #ffcb8e;
+    background-color: #931a25;
     padding: 40px;
     font-size: 80%;
 }
