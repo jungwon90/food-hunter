@@ -8,7 +8,7 @@ Backend: Java, Spring, Gradle
 Fronend: HTML5, CSS3, React.js
 
 ### Data
-DataSF, Yelp
+DataSF, Yelp API
 
 ### Roadmap
 

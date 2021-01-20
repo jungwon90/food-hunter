@@ -292,23 +292,30 @@ function YelpContainer(props){
             let rating = yelpData['rating'];
             let open = yelpData.hours[0].is_open_now ? 'open' : 'closed';
             let hours = yelpData.hours[0].open; //open hours array(Mon-Fri)
-            let weekHours = [];
 
+            //an empty array to contain a list of strings '<p>start: ~ end: ~</p>'
+            let weekHours = [];
+            //get the daily open hour from hours array
             for(const daily of hours){
                 weekHours.push(`<p>start: ${daily.start.slice(0, 2) + ':' + daily.start.slice(2, 4)}  
                                 end: ${daily.end.slice(0, 2) + ":" + daily.end.slice(2, 4)}</p>`)
             }
             
+            //an empty array to contain a list of strings of categories 
             let categories = [];
+            //push the each category into the array from the yelpData.categories array
             for(const category of yelpData.categories){
                 categories.push(category['title']);
             }
-    
+            
+            //an empty array to contain a list of strings of servies
             let services = [];
+            //push the each service into the empty array 
             for(const service of yelpData['transactions']){
                 services.push(service);
             }
-    
+            
+            //an empty array to contain a list of adresses 
             let address = [];
             for(const arrAdd of yelpData['location']['display_address']){
                 address.push(arrAdd);
@@ -316,8 +323,10 @@ function YelpContainer(props){
             
             const content = `
             <div class="yelp-content-box" style="background-image:linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${yelpData['image_url']});">
-                <p>${yelpData['name']}</p>
-                <img class="rating-img" src="../img/${rating}stars.png">
+                <div class="yelp-name-rating-cont">
+                    <p class="yelp-content-name">${yelpData['name']}</p>
+                    <img class="rating-img" src="../img/${rating}stars.png">
+                </div>
             </div>
             <div class="yelp-content-box">
                 <p>${categories.join(', ')}</p>

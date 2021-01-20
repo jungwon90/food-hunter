@@ -177,9 +177,21 @@ body {
     vertical-align: middle;
 }
 
+.yelp-name-rating-cont{
+    margin-top: 195px;
+    margin-left: 300px;
+    text-align: end;
+    margin-right: 25px;
+}
 
+.yelp-content-name{
+    font-size: 28px;
+    font-weight: 400;
+    color: #ffff;
+}
 .rating-img{
-    width: 15%;
+    width: 80%;
+    margin-top: 5px;
     height: auto;
 }
 
