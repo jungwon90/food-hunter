@@ -77,12 +77,18 @@ body {
 #search-btn{
     text-transform: uppercase;
     font: 'Lato';
-    font-weight: 400;
+    font-weight: 500;
     border-radius: 10px;
     padding: 5px 20px;
+    font-weight: 400;
     background-color: rgba(245, 239, 239, .8);
+    transition: background-color 0.2s, color 0.2s;
 }
-
+#search-btn:hover,
+#search-btn:active{
+    background-color: #ffcb8e;
+    color: #931a25;
+}
 /*--------------  list container --------------*/
 #list-container{
     display: inline-block;
@@ -175,6 +181,7 @@ body {
     padding-top: 9px; 
     margin-top: 9px;
     vertical-align: middle;
+    font-weight: 400;
 }
 
 .yelp-name-rating-cont{
@@ -193,6 +200,14 @@ body {
     width: 80%;
     margin-top: 5px;
     height: auto;
+}
+
+.yelp-info-p-top{
+    padding-top: 27px;
+}
+.yelp-info-p{
+    margin-top: 12px;
+    margin-bottom: 20px;
 }
 
 /*--------------  footer --------------*/

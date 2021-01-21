@@ -58,32 +58,36 @@ function SearchBar(props){
         props.setCount(curCount);
         console.log(isError, searchInput, props.data);
 
-        //get request to /search in the server
-        $.get('/search', (response)=>{
-            console.log(response); // a list of objects
-            //filter the data based on the searchInput
-            const searchData = [];
-            let foodItems = '';
-            for(const object of response){
-                if(object['fooditems']){
-                    //convert all the caracters in the string into lowercase
-                    foodItems = object['fooditems'].toLowerCase();
-                    //if the foodItems includes the searchInput(if it's true)
-                    if(foodItems.includes(searchInput)){
-                        //push the object into the search data array
-                        searchData.push(object);
+        if (searchInput == ''){
+            alert('Please type the food that you are craving');
+        } else{
+            //get request to /search in the server
+            $.get('/search', (response)=>{
+                console.log(response); // a list of objects
+                //filter the data based on the searchInput
+                const searchData = [];
+                let foodItems = '';
+                for(const object of response){
+                    if(object['fooditems']){
+                        //convert all the caracters in the string into lowercase
+                        foodItems = object['fooditems'].toLowerCase();
+                        //if the foodItems includes the searchInput(if it's true)
+                        if(foodItems.includes(searchInput)){
+                            //push the object into the search data array
+                            searchData.push(object);
+                        }
+
                     }
-
                 }
-            }
-            console.log(searchData);
-            //set the data to the filtered data from the server
-            props.setData(searchData); 
+                console.log(searchData);
+                //set the data to the filtered data from the server
+                props.setData(searchData); 
 
-        }).fail(()=>{
-            setIsError(true);
-            alert('Fail to retrieve the data');
-        });
+            }).fail(()=>{
+                setIsError(true);
+                alert('Fail to retrieve the data');
+            });
+        }  
     }
 
     return(
@@ -291,6 +295,7 @@ function YelpContainer(props){
             $('#yelp-content').empty();
             let rating = yelpData['rating'];
             let open = yelpData.hours[0].is_open_now ? 'open' : 'closed';
+            let color = open == 'open' ? 'green' : '#931a25';
             let hours = yelpData.hours[0].open; //open hours array(Mon-Fri)
 
             //an empty array to contain a list of strings '<p>start: ~ end: ~</p>'
@@ -329,11 +334,11 @@ function YelpContainer(props){
                 </div>
             </div>
             <div class="yelp-content-box">
-                <p>${categories.join(', ')}</p>
-                <p>${open}</p>
-                <p>Call   ${yelpData['display_phone']}</p>
-                <div>Services: ${services.join(' & ')}</div>
-                <a href=${yelpData['url']}>View More Info in Yelp</a>
+                <p class="yelp-info-p yelp-info-p-top"><span style="margin-right:10px">Food Categories:</span> ${categories.join(', ')}</p>
+                <p class="yelp-info-p"> currently <span style="color:${color}"><b>${open}</b></span></p>
+                <p class="yelp-info-p"><span style="margin-right:10px">Call</span> ${yelpData['display_phone']}</p>
+                <div class="yelp-info-p"><span style="margin-right:10px">Services:</span> ${services.join(' & ')}</div>
+                <a href=${yelpData['url']} class="yelp-info-p">View More Info in Yelp</a>
             </div>
             <div class="yelp-content-box">
                 <div>
