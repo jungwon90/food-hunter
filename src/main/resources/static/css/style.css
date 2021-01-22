@@ -99,6 +99,7 @@ body {
     background-color: rgba(245, 239, 239, .8);
     border-radius: 0.5em;
     position: relative;
+    box-shadow: inset 2px 2px #cccccc;
 }
 
 .list-scrollbar{
@@ -166,6 +167,7 @@ body {
     height: 300px;
     background-color: rgba(245, 239, 239, .8);
     border-radius: 0.5em;
+    box-shadow: inset 2px 2px #cccccc;
 }
 
 #yelp-content{
@@ -208,6 +210,24 @@ body {
 .yelp-info-p{
     margin-top: 12px;
     margin-bottom: 20px;
+}
+
+.yelp-content-box-3{
+    margin-top: 39px;
+    margin-bottom: 20px;
+}
+
+.yelp-address,
+.yelp-hour{
+    margin-bottom: 5px;
+}
+
+.weekday-con{
+    display: inline-block;
+    width: 50px;
+}
+.week-hours{
+    display: inline-block;
 }
 
 /*--------------  footer --------------*/

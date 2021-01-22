@@ -301,9 +301,29 @@ function YelpContainer(props){
             //an empty array to contain a list of strings '<p>start: ~ end: ~</p>'
             let weekHours = [];
             //get the daily open hour from hours array
+            let i = 0
+            let weekday = '';
             for(const daily of hours){
-                weekHours.push(`<p>start: ${daily.start.slice(0, 2) + ':' + daily.start.slice(2, 4)}  
-                                end: ${daily.end.slice(0, 2) + ":" + daily.end.slice(2, 4)}</p>`)
+                if(i == 0){
+                    weekday = 'Mon';
+                } else if(i == 1){
+                    weekday = 'Tue';
+                } else if(i == 2){
+                    weekday = 'Wed';
+                } else if(i == 3){
+                    weekday = 'Thur';
+                } else if(i == 4){
+                    weekday = 'Fri';
+                } else if(i == 5){
+                    weekday = 'Sat';
+                } else if(i == 6){
+                    weekday = 'Sun';
+                }
+
+                weekHours.push(`<div><div class="weekday-con">${weekday}</div><p class="week-hours">start: ${daily.start.slice(0, 2) + ':' + daily.start.slice(2, 4)}  
+                                <span style="margin-left:10px">end:</span> ${daily.end.slice(0, 2) + ":" + daily.end.slice(2, 4)}</p></div>`);
+                
+                i++;
             }
             
             //an empty array to contain a list of strings of categories 
@@ -341,12 +361,12 @@ function YelpContainer(props){
                 <a href=${yelpData['url']} class="yelp-info-p">View More Info in Yelp</a>
             </div>
             <div class="yelp-content-box">
-                <div>
-                    <label>ADDRESS</label>
+                <div class="yelp-content-box-3">
+                    <p class="yelp-address">ADDRESS</p>
                     <p>${address.join(', ')}</p>
                 </div>
-                <div>
-                    <label>HOURS</label>
+                <div class="yelp-content-box-3">
+                    <p class="yelp-hour">HOURS</p>
                     ${weekHours.join('')}         
                 </div>
             </div>`;
