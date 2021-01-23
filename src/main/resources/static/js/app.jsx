@@ -126,8 +126,8 @@ function FoodTruck(props){
         <div className="foodTruck" onClick={handleClickFoodTruck}>
             <img src={props.imgUrl} className="list-truck-icon"></img>
             <div className="foodtruck-list-info">
-                <p>{props.name}</p>
-                <p>{props.address}</p>
+                <p><b>{props.name}</b></p>
+                <p className="foodtruck-address">{props.address}</p>
             </div>
         </div>
     );
@@ -141,7 +141,6 @@ function ListContainer(props){
     const foodTruckLists = [];
     
     if(listData.length !== 0){
-        console.log('useEffect is working');
         for(let i = 0; i < listData.length; i++){
             foodTruckLists.push(<FoodTruck 
             key={i}
