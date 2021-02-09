@@ -21,7 +21,8 @@ public class AppController {
 
     @Autowired
     private RestTemplate restTemplate;
-
+    
+    //DataSF url to retrieve the food truck data
     private static String url = "https://data.sfgov.org/resource/rqzj-sfat.json?facilitytype=Truck";
 
     @GetMapping("/search")

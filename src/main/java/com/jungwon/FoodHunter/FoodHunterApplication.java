@@ -12,18 +12,14 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @RestController
 public class FoodHunterApplication {
-
+	/** main application */
 	@Bean
 	public RestTemplate getRestTemplate(){
 		return new RestTemplate();
 	}
 
 	public static void main(String[] args) {
+		/** main method that run the application */
 		SpringApplication.run(FoodHunterApplication.class, args);
 	}
-
-	// @GetMapping("/")
-	// public String homePage() {
-	// 	return "home";
-	// }
 }

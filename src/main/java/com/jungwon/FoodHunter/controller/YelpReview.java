@@ -28,7 +28,7 @@ import java.lang.reflect.Type;
 
 @RestController
 public class YelpReview {
-    
+    /** contains yelp API key and methods that returns yelp data */
     @Value("${api.key}")
     private String apiKey;
 

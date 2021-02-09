@@ -18,6 +18,9 @@ DataSF, Yelp API
 - Users can see information of each food truck 
 - Users can see the review on Yelp of each food truck
 
+![Food Hunters Demo](demo/1.gif)
+![Food Hunters Demo](demo/2.gif)
+
 #### 2.0
 
 #### 3.0
